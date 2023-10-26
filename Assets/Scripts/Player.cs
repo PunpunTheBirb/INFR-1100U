@@ -20,7 +20,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Rigidbody bulletPrefab;
     [SerializeField] private float projectileForce;
-    
+
+    [SerializeField] private TextMeshProUGUI ammo;
+
+    private int ammoCounter = 24;
+
     private Vector2 currentAngle;
 
     private bool isGrounded;
@@ -42,6 +46,11 @@ public class Player : MonoBehaviour
     {
         transform.position += transform.rotation * (speed * Time.deltaTime * _moveDir);
         CheckGround();
+
+        if(ammoCounter <= 0)
+        {
+            ammoCounter = 24;
+        }
     }
 
     public void SetMovementDirection(Vector3 newDirection)
@@ -80,6 +89,11 @@ public class Player : MonoBehaviour
     {
        Rigidbody currentProjectile = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
        currentProjectile.AddForce(followTarget.forward * projectileForce, ForceMode.Impulse);
+
+       --ammoCounter;
+
+       ammo.text = ("ammo:"+ammoCounter.ToString());
+
        Destroy(currentProjectile.gameObject, 4);
     }
 }
