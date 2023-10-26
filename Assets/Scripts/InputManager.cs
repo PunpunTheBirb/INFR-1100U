@@ -15,6 +15,11 @@ public static class InputManager
             myPlayer.SetMovementDirection(hi.ReadValue<Vector3>());
         };
 
+        _controls.Game.Jump.performed += hello =>
+        {
+            myPlayer.Jump();
+        };
+
         _controls.Permanent.Enable();
 
     }
