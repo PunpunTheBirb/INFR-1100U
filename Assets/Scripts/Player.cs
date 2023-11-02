@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private WeaponBase myWeapon;
+    private bool weaponShootToggle;
 
     private Vector2 currentRotation;
     
@@ -21,7 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody bulletPrefab;
     [SerializeField] private float projectileForce;
 
-    [SerializeField] private TextMeshProUGUI ammo;
+  //  [SerializeField] private TextMeshProUGUI ammo;
 
     private int ammoCounter = 24;
 
@@ -87,13 +89,19 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-       Rigidbody currentProjectile = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+       /* Rigidbody currentProjectile = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
        currentProjectile.AddForce(followTarget.forward * projectileForce, ForceMode.Impulse);
 
        --ammoCounter;
 
-       ammo.text = ("ammo:"+ammoCounter.ToString());
+      // ammo.text = ("ammo:"+ammoCounter.ToString());
 
-       Destroy(currentProjectile.gameObject, 4);
+       Destroy(currentProjectile.gameObject, 4); */
+
+       Print("I shot");
+
+       weaponShootToggle = !weaponShootToggle;
+       if (weaponShootToggle) myWeapon.StartShooting();
+       else myWeapon.StopShooting();
     }
 }
